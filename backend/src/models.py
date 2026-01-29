@@ -142,7 +142,6 @@ class Municipio(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     nome = Column(String(100), nullable=False, unique=True)
     geom = Column(Geometry('MULTIPOLYGON', srid=4326), nullable=False)
-    populacao = Column(Integer)
     created_at = Column(DateTime, default=datetime.utcnow)
 
 

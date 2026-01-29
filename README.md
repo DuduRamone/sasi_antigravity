@@ -1,327 +1,307 @@
 # SASI - Sistema de Apoio à Seleção de Inspeções
 
-<div align="center">
+Sistema de mapa interativo para otimização de inspeções de fraude de energia elétrica no Rio Grande do Norte.
 
-**Energy Fraud Inspection Mapping System**
+![SASI Interface](https://img.shields.io/badge/Status-Phase%204%20Complete-success)
+![Tech Stack](https://img.shields.io/badge/Stack-React%20%7C%20FastAPI%20%7C%20PostGIS-blue)
 
-Sistema web para identificação e seleção estratégica de instalações para inspeção de fraude de energia.
+## 🎯 Visão Geral
 
-[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
-[![React](https://img.shields.io/badge/React-18+-61dafb.svg)](https://reactjs.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-009688.svg)](https://fastapi.tiangolo.com/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16+-336791.svg)](https://www.postgresql.org/)
-[![PostGIS](https://img.shields.io/badge/PostGIS-3.4+-4169E1.svg)](https://postgis.net/)
+O SASI é uma ferramenta de análise geoespacial que auxilia analistas a identificar e priorizar alvos para inspeções de combate à fraude de energia. O sistema combina dados cadastrais, histórico de consumo, e análises preditivas para visualizar padrões suspeitos em um mapa interativo.
 
-</div>
+### Status do Projeto
 
----
-
-## 📋 Sobre o Projeto
-
-O SASI é uma aplicação web moderna desenvolvida para apoiar analistas de fraude na identificação e seleção estratégica de instalações elétricas para inspeção. O sistema utiliza análise geoespacial para visualizar instalações suspeitas em um mapa interativo, permitindo decisões mais informadas e eficientes.
-
-### 🎯 Objetivos
-
-- Substituir aplicações monolíticas legadas por uma arquitetura moderna e escalável
-- Fornecer visualização geográfica interativa de instalações suspeitas
-- Permitir análise multi-critério através de queries principais e auxiliares
-- Facilitar a seleção e priorização de alvos para inspeção
-- Melhorar a eficiência operacional no combate à fraude de energia
-
-### ✨ Funcionalidades Implementadas (Fase 1 e 2)
-
-- ✅ Mapa base interativo do Rio Grande do Norte
-- ✅ Seleção de queries principais com visualização simultânea
-- ✅ Marcadores coloridos por query com diferenciação por tipo de alvo
-- ✅ Sistema de cores: cada query possui cor única, com variação clara/escura para alvos fortes/regulares
-- ✅ Painel resumo com contagem de instalações por query
-- ✅ Popups informativos com detalhes das instalações
-- ✅ API REST completa com endpoints para queries, instalações e áreas
+✅ **Phase 1** - Mapa base com limites do RN  
+✅ **Phase 2** - Queries principais (distribuição statewide)  
+✅ **Phase 3** - Seleção de área (municípios + polígonos)  
+✅ **Phase 4** - Queries auxiliares (marcadores + heatmaps)  
+🚧 **Phase 5** - Painel de detalhes por instalação (próximo)
 
 ---
 
-## 🏗️ Arquitetura
+## 🚀 Features Implementadas
 
-### Stack Tecnológico
+### Phase 1 & 2 - Visualização Básica
+- ✅ Mapa interativo do Rio Grande do Norte
+- ✅ 4 queries principais com cores distintas
+- ✅ Marcadores diferenciados por tipo (forte/regular)
+- ✅ Popup com informações básicas da instalação
+- ✅ Filtros de query ativados via checkboxes
 
-**Backend:**
-- **FastAPI** - Framework web Python moderno e de alta performance
-- **PostgreSQL 16+** - Banco de dados relacional
-- **PostGIS 3.4+** - Extensão geoespacial para PostgreSQL
-- **SQLAlchemy** - ORM para Python
-- **GeoAlchemy2** - Extensão SQLAlchemy para tipos geoespaciais
-- **Pydantic** - Validação de dados e serialização
+### Phase 3 - Seleção de Área
+- ✅ **Seleção por Município** - Dropdown com 4 municípios do RN
+- ✅ **Desenho de Polígono** - Usando Leaflet Geoman para delimitação customizada
+- ✅ Limpeza de área selecionada
+- ✅ Queries auxiliares habilitadas após seleção de área
 
-**Frontend:**
-- **React 18** - Biblioteca JavaScript para UI
-- **Vite** - Build tool e dev server
-- **Leaflet** - Biblioteca de mapas interativos open-source
-- **React Leaflet** - Componentes React para Leaflet
-- **Axios** - Cliente HTTP
-
-**Infraestrutura:**
-- Docker (em desenvolvimento)
-- Git/GitHub para controle de versão
-
-### Estrutura de Diretórios
-
-```
-SASI/
-├── backend/                # Aplicação Python FastAPI
-│   ├── src/
-│   │   ├── db/            # Scripts SQL (schema, seed data)
-│   │   ├── routes/        # Endpoints da API
-│   │   ├── models.py      # Modelos SQLAlchemy
-│   │   ├── schemas.py     # Schemas Pydantic
-│   │   ├── database.py    # Configuração do banco
-│   │   └── main.py        # Ponto de entrada da API
-│   ├── requirements.txt   # Dependências Python
-│   └── .env.example       # Exemplo de variáveis de ambiente
-│
-├── frontend/              # Aplicação React
-│   ├── src/
-│   │   ├── components/    # Componentes React
-│   │   ├── services/      # Serviços (API client)
-│   │   ├── App.jsx        # Componente principal
-│   │   └── index.css      # Estilos globais
-│   ├── package.json       # Dependências Node.js
-│   └── vite.config.js     # Configuração Vite
-│
-├── README.md              # Este arquivo
-└── SETUP_GUIDE.md         # Guia detalhado de instalação
-```
+### Phase 4 - Queries Auxiliares
+- ✅ **Marcadores** - Instalações filtradas por área (quadrados roxos)
+- ✅ **Heatmap** - Visualização de densidade com gradiente roxo→magenta→laranja→vermelho
+- ✅ 4 queries auxiliares:
+  - 📍 Densidade Populacional (heatmap)
+  - 🔧 Histórico de Manutenção (marcadores)
+  - 📊 Consumo por Classe (heatmap)
+  - ⚠️ Instalações Críticas (marcadores)
 
 ---
 
-## 🚀 Início Rápido
+## 🛠️ Tech Stack
+
+### Backend
+- **FastAPI** - Framework Python assíncrono
+- **PostgreSQL 17** + **PostGIS 3.4** - Banco geoespacial
+- **SQLAlchemy** + **GeoAlchemy2** - ORM com suporte espacial
+- **Python 3.11+**
+
+### Frontend
+- **React 18** + **Vite** - SPA moderna e rápida
+- **React Leaflet** - Mapa interativo
+- **Leaflet Geoman** - Desenho de polígonos
+- **leaflet.heat** - Visualização de heatmaps
+
+---
+
+## 📦 Instalação
 
 ### Pré-requisitos
 
+- **Node.js 18+** e **npm**
 - **Python 3.11+**
-- **Node.js 18+** e npm
-- **PostgreSQL 16+** com extensão **PostGIS 3.4+**
-- **Git**
+- **PostgreSQL 17** com extensão **PostGIS**
 
-### Instalação Rápida
+### 1. Clone o Repositório
 
 ```bash
-# 1. Clone o repositório
-git clone https://github.com/DuduRamone/sasi_antigravity.git
-cd sasi_antigravity
-
-# 2. Configure o banco de dados PostgreSQL
-# Certifique-se que PostgreSQL está rodando e crie o banco
-
-# 3. Configure o Backend
-cd backend
-python -m venv venv
-source venv/bin/activate  # No Windows: venv\Scripts\activate
-pip install -r requirements.txt
-
-# Configure as variáveis de ambiente
-cp .env.example .env
-# Edite .env com suas credenciais do PostgreSQL
-
-# Aplique o schema e dados de exemplo
-psql -U postgres -d sasi2 -f src/db/schema_v2.sql
-psql -U postgres -d sasi2 -f src/db/seed_sample_data_v2.sql
-
-# Inicie o servidor backend
-cd src
-python main.py
-# Backend rodando em http://localhost:8000
-
-# 4. Configure o Frontend (em novo terminal)
-cd frontend
-npm install
-npm run dev
-# Frontend rodando em http://localhost:5173
+git clone https://github.com/seu-usuario/sasi.git
+cd sasi
 ```
 
-Para instruções detalhadas, consulte **[SETUP_GUIDE.md](./SETUP_GUIDE.md)**.
+### 2. Backend Setup
+
+```bash
+cd backend
+
+# Criar ambiente virtual
+python -m venv venv
+.\venv\Scripts\activate  # Windows
+# source venv/bin/activate  # Linux/Mac
+
+# Instalar dependências
+pip install -r requirements.txt
+
+# Configurar variáveis de ambiente
+copy .env.example .env
+# Edite .env com suas credenciais PostgreSQL
+
+# Criar banco de dados
+createdb -U postgres sasi2
+
+# Executar schema
+psql -U postgres -d sasi2 -f src/db/schema_v2.sql
+
+# Popular dados de exemplo
+psql -U postgres -d sasi2 -f src/db/seed_sample_data_v2.sql
+psql -U postgres -d sasi2 -f src/db/seed_more_data.sql
+
+# Iniciar servidor
+cd src
+python main.py
+```
+
+Backend rodará em: **http://localhost:8000**
+
+### 3. Frontend Setup
+
+```bash
+cd frontend
+
+# Instalar dependências
+npm install
+
+# Iniciar dev server
+npm run dev
+```
+
+Frontend rodará em: **http://localhost:5173**
+
+---
+
+## 📖 Uso
+
+### Workflow Básico
+
+1. **Selecione Queries Principais**
+   - Marque uma ou mais queries no painel esquerdo
+   - Círculos aparecem no mapa (todo RN)
+   - Cores diferentes por query
+   - Tamanhos diferentes: forte (maior) vs regular (menor)
+
+2. **Delimite Área de Interesse** (opcional)
+   - **Município**: Escolha no dropdown
+   - **Polígono**: Clique em "Desenhar Polígono" → use ferramentas no canto superior direito do mapa
+
+3. **Adicione Queries Auxiliares** (requer área selecionada)
+   - Marque queries auxiliares desejadas
+   - **Densidade Populacional**: Heatmap roxo→vermelho
+   - **Histórico de Manutenção**: Quadrados roxos
+   - Etc.
+
+4. **Interaja com Marcadores**
+   - Clique em qualquer marcador para ver popup com detalhes
+   - (Phase 5: painel lateral com informações completas)
+
+---
+
+## 🗺️ Estrutura do Projeto
+
+```
+SASI/
+├── backend/
+│   ├── src/
+│   │   ├── db/
+│   │   │   ├── schema_v2.sql           # Schema do banco
+│   │   │   ├── seed_sample_data_v2.sql # Dados iniciais
+│   │   │   └── seed_more_data.sql      # Dados adicionais
+│   │   ├── routes/
+│   │   │   ├── queries.py              # Endpoints de queries
+│   │   │   ├── areas.py                # Endpoints de áreas
+│   │   │   └── temp_bulk_insert.py     # Bulk insert (temp)
+│   │   ├── models.py                   # Modelos SQLAlchemy
+│   │   ├── schemas.py                  # Schemas Pydantic
+│   │   ├── database.py                 # Conexão DB
+│   │   └── main.py                     # FastAPI app
+│   └── requirements.txt
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Map/
+│   │   │   │   ├── BaseMap.jsx         # Mapa base + Geoman
+│   │   │   │   ├── InstallationMarkers.jsx
+│   │   │   │   └── Heatmap.jsx         # Visualização heatmap
+│   │   │   ├── QuerySelector/
+│   │   │   │   ├── MainQuerySelector.jsx
+│   │   │   │   └── AuxiliaryQuerySelector.jsx
+│   │   │   └── AreaSelector/
+│   │   │       └── AreaSelector.jsx    # Município + Polígono
+│   │   ├── services/
+│   │   │   └── api.js                  # Cliente API
+│   │   ├── App.jsx                     # Componente principal
+│   │   └── main.jsx
+│   └── package.json
+├── DATABASE_QUERIES.md                 # Documentação SQL completa
+└── README.md
+```
+
+---
+
+## 🔧 API Endpoints
+
+### Queries Principais
+- `GET /api/queries/main` - Lista queries principais
+- `GET /api/queries/main/{id}/results` - Resultados de query (statewide)
+
+### Queries Auxiliares
+- `GET /api/queries/auxiliary` - Lista queries auxiliares
+- `GET /api/queries/auxiliary/{id}/results?area_type=municipio&area_value=Natal` - Resultados filtrados
+
+### Áreas
+- `GET /api/areas/municipalities` - Lista municípios
+- `GET /api/areas/municipalities/{nome}/geometry` - Geometria do município
+
+Ver [`DATABASE_QUERIES.md`](./DATABASE_QUERIES.md) para queries SQL completas.
+
+---
+
+## 🎨 Características Visuais
+
+### Marcadores Principais (Círculos)
+- **Cor**: Cor da query (azul, verde, laranja, vermelho)
+- **Tamanho**: 20px (forte) / 16px (regular)
+- **Opacidade**: 100% (forte) / 85% (regular)
+
+### Marcadores Auxiliares (Quadrados)
+- **Cor**: Roxo/magenta
+- **Tamanho**: 12px
+- **Forma**: Quadrado (para diferenciar de principais)
+
+### Heatmap
+- **Gradiente**: Roxo → Magenta → Laranja → Vermelho
+- **Raio**: 35px
+- **Opacidade**: 30-100%
+- **Otimizado para**: Fundos claros (OpenStreetMap)
 
 ---
 
 ## 📊 Modelo de Dados
 
-### Entidades Principais
+### Tabelas Principais
+- `instalacoes` - Instalações elétricas com geometria
+- `queries_principais` - Definição de queries principais
+- `queries_auxiliares` - Definição de queries auxiliares
+- `resultado_queries_principais` - Resultados por instalação
+- `resultado_queries_auxiliares` - Resultados auxiliares (com intensidade)
+- `municipios` - Municípios do RN (MULTIPOLYGON)
 
-**Instalações** (`instalacoes`)
-- Representa instalações elétricas com localização geográfica
-- Campos: id, município, classe tarifária, latitude, longitude, geometria (Point)
+### Queries Espaciais
 
-**Queries Principais** (`queries_principais`)
-- Consultas de análise statewide (todo RN)
-- Campos: nome, descrição, **cor** (hex), ativa
-- Exemplos: Alto Consumo Residencial, Variação Atípica, Classe Tarifária Inadequada
+**Filtro por município:**
+```sql
+WHERE i.municipio = 'Natal'
+```
 
-**Resultados de Queries** (`resultado_queries_principais`)
-- Relação N:N entre queries e instalações
-- Campos: id_query, id_instalacao, **tipo_alvo** (forte/regular), score
-- **Tipo de alvo por instalação**: cada instalação possui classificação individual
-
-**Queries Auxiliares** (`queries_auxiliares`)
-- Consultas contextuais restritas a áreas específicas
-- Retornam instalações ou heatmaps
-
-### Mudanças Importantes
-
-Na versão atual (v2), o **tipo de alvo** (forte/regular) foi movido do nível de query para o nível de **resultado por instalação**. Isso permite que uma mesma query contenha tanto alvos fortes quanto regulares, oferecendo maior flexibilidade analítica.
-
-Cada query principal agora possui uma **cor única** em formato hexadecimal, permitindo diferenciação visual clara no mapa.
+**Filtro por polígono:**
+```sql
+WHERE ST_Contains(ST_GeomFromGeoJSON(:polygon), i.geom)
+```
 
 ---
 
-## 🗺️ Sistema de Cores
+## 🐛 Troubleshooting
 
-O sistema utiliza cores para facilitar a identificação visual:
+### Backend não inicia
+- Verifique PostgreSQL rodando: `pg_ctl status`
+- Confirme extensão PostGIS: `SELECT PostGIS_version();`
+- Verifique `.env` com credenciais corretas
 
-| Query | Cor Base | Hex |
-|-------|----------|-----|
-| Alto Consumo Residencial | 🔵 Azul | `#3B82F6` |
-| Variação Atípica | 🟢 Verde | `#10B981` |
-| Classe Tarifária Inadequada | 🟠 Laranja | `#F59E0B` |
-| Proximidade a Fraudes | 🔴 Vermelho | `#EF4444` |
+### Frontend não conecta ao backend
+- Backend deve rodar em `http://localhost:8000`
+- Verifique CORS configurado corretamente em `main.py`
+- Teste API: `curl http://localhost:8000/health`
 
-**Variação por Tipo de Alvo:**
-- **Alvos Regulares**: Tom mais escuro da cor base
-- **Alvos Fortes**: Tom mais claro da cor base
+### Heatmap não aparece
+- Mínimo ~20 pontos necessários para visibilidade
+- Área deve estar selecionada (município ou polígono)
+- Query auxiliar deve ter `tipo_retorno='heatmap'`
 
----
-
-## 🔌 API Endpoints
-
-### Queries
-
-```
-GET  /api/queries/main                    # Lista queries principais
-GET  /api/queries/main/{id}/results       # Resultados de query (GeoJSON)
-GET  /api/queries/auxiliary               # Lista queries auxiliares
-GET  /api/queries/auxiliary/{id}/results  # Resultados auxiliares
-```
-
-### Instalações
-
-```
-GET  /api/installations/{id}                    # Detalhes da instalação
-GET  /api/installations/{id}/consumption        # Histórico de consumo
-GET  /api/installations/{id}/frauds             # Fraudes registradas
-GET  /api/installations/{id}/service-notes      # Notas de serviço
-GET  /api/installations/{id}/status             # Status atual
-PUT  /api/installations/{id}/status             # Atualizar status
-```
-
-### Áreas
-
-```
-GET  /api/areas/municipalities                     # Lista municípios
-GET  /api/areas/municipalities/{name}/geometry    # Geometria do município
-POST /api/areas/metrics                           # Métricas agregadas de área
-```
-
-Documentação interativa disponível em: `http://localhost:8000/docs`
+### Polígono não desenha
+- Verifique modo "Desenhar Polígono" ativado
+- Controles devem aparecer no canto superior direito
+- Leaflet Geoman instalado: `npm list @geoman-io/leaflet-geoman-free`
 
 ---
 
-## 📅 Roadmap de Desenvolvimento
+## 🚀 Próximos Passos (Phase 5)
 
-### ✅ Fase 1 - Mapa Base e Estado Inicial (Concluída)
-- [x] Estrutura do projeto (frontend + backend)
-- [x] Banco PostgreSQL com PostGIS
-- [x] Schema do banco de dados
-- [x] Mapa base do Rio Grande do Norte
-- [x] Estado vazio (sem dados sem query ativa)
-
-### ✅ Fase 2 - Queries Principais (Concluída)
-- [x] API de queries principais
-- [x] Seletor de queries no sidebar
-- [x] Marcadores no mapa (statewide)
-- [x] Sistema de cores por query
-- [x] Tipo de alvo por instalação (forte/regular)
-- [x] Resumo de resultados
-
-### 🚧 Fase 3 - Delimitação de Área (Próxima)
-- [ ] Seletor de municípios
-- [ ] Ferramenta de desenho de polígonos
-- [ ] Restrição de visualização à área selecionada
-- [ ] Atualização automática de bounds do mapa
-
-### 📋 Fase 4 - Queries Auxiliares
-- [ ] Ativação de queries auxiliares (apenas com área definida)
-- [ ] Visualização de heatmap
-- [ ] Controles de camadas (layer controls)
-
-### 📋 Fase 5 - Detalhes de Instalação
-- [ ] Painel/modal de detalhes
-- [ ] Informações cadastrais
-- [ ] Gráfico de histórico de consumo
+- [ ] Painel lateral de detalhes da instalação
+- [ ] Gráficos de histórico de consumo
 - [ ] Histórico de notas de serviço
-
-### 📋 Fase 6 - Análise Agregada de Área
-- [ ] Cálculo de perímetro da área
-- [ ] Contagem de fraudes (últimos 5 anos)
-- [ ] Distribuição por classe tarifária
-- [ ] Painel de métricas agregadas
-
-### 📋 Fase 7 - Gestão de Status
-- [ ] Seleção manual de instalações
-- [ ] Atribuição de status (selecionada/não selecionada/verificar)
-- [ ] Agrupamento por status
-- [ ] Persistência de decisões
+- [ ] Registro de fraudes anteriores
+- [ ] Status de seleção (selecionado/verificar/não selecionado)
+- [ ] Exportação de lista de inspeções
 
 ---
 
-## 🤝 Contribuindo
+## 📄 Licença
 
-Este projeto está em desenvolvimento ativo. Contribuições são bem-vindas!
-
-### Diretrizes
-
-1. Fork o repositório
-2. Crie uma branch para sua feature (`git checkout -b feature/MinhaFeature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona MinhaFeature'`)
-4. Push para a branch (`git push origin feature/MinhaFeature`)
-5. Abra um Pull Request
-
-### Convenções de Código
-
-- **Backend**: Siga PEP 8 para Python
-- **Frontend**: Use ESLint e Prettier
-- **Commits**: Mensagens claras e descritivas em português
-- **SQL**: Use snake_case para nomes de tabelas e colunas
+Este projeto é proprietário e confidencial.
 
 ---
 
-## 📝 Licença
+## 👥 Contato
 
-Este projeto é proprietário e desenvolvido para fins específicos de combate à fraude de energia.
-
----
-
-## 👥 Autores
-
-- **Eduardo Ramon** - Desenvolvimento inicial - [@DuduRamone](https://github.com/DuduRamone)
+Para dúvidas ou suporte, entre em contato com a equipe de desenvolvimento.
 
 ---
 
-## 🙏 Agradecimentos
-
-- Equipe de análise de fraude pela validação dos requisitos
-- Comunidade open-source pelas excelentes ferramentas utilizadas
-- Antigravity AI Assistant pela assistência no desenvolvimento
-
----
-
-## 📧 Contato
-
-Para questões, sugestões ou suporte:
-- Abra uma [Issue](https://github.com/DuduRamone/sasi_antigravity/issues)
-- Entre em contato através do GitHub
-
----
-
-<div align="center">
-
-**Desenvolvido com ❤️ para combater fraude de energia**
-
-</div>
+**Versão**: 0.4.0 (Phase 4 Complete)  
+**Última atualização**: Janeiro 2026

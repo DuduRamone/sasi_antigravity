@@ -41,6 +41,7 @@ export const getMainQueries = async () => {
 export const getMainQueryResults = async (queryId, bounds = null) => {
   const params = bounds ? { bounds } : {};
   const response = await api.get(`/queries/main/${queryId}/results`, { params });
+  console.log('📥 Main Query Results:', queryId, response.data);
   return response.data;
 };
 

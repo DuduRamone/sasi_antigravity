@@ -9,7 +9,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
 
-from routes import queries, installations, areas
+from routes import queries, areas
+from routes.temp_bulk_insert import router as bulk_router
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -45,8 +46,8 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 # Mount routers
 app.include_router(queries.router, prefix="/api/queries", tags=["Queries"])
-app.include_router(installations.router, prefix="/api/installations", tags=["Installations"])
 app.include_router(areas.router, prefix="/api/areas", tags=["Areas"])
+app.include_router(bulk_router, prefix="/api/bulk", tags=["Bulk Insert"])
 
 
 @app.get("/")

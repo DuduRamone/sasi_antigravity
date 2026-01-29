@@ -18,21 +18,23 @@ class QueryPrincipalBase(BaseModel):
 
 class QueryPrincipalResponse(QueryPrincipalBase):
     id_query: int
-    ativa: bool
     created_at: datetime
     
     class Config:
         from_attributes = True
 
+# ============================================
+# Auxiliary Query Schemas
+# ============================================
 
 class QueryAuxiliarBase(BaseModel):
     nome: str
     descricao: Optional[str] = None
-    tipo_retorno: Literal['instalacao', 'heatmap']
+    tipo_retorno: Literal['instalacoes', 'heatmap']  # Match seed data
+    ativa: bool = True
 
 class QueryAuxiliarResponse(QueryAuxiliarBase):
     id_query: int
-    ativa: bool
     created_at: datetime
     
     class Config:
@@ -169,7 +171,6 @@ class AreaMetricsResponse(BaseModel):
 class MunicipioResponse(BaseModel):
     id: int
     nome: str
-    populacao: Optional[int] = None
     
     class Config:
         from_attributes = True

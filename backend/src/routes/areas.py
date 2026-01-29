@@ -32,7 +32,6 @@ async def get_municipality_geometry(nome: str, db: Session = Depends(get_db)):
         SELECT 
             id,
             nome,
-            populacao,
             ST_AsGeoJSON(geom) as geom_json
         FROM municipios
         WHERE nome = :nome
@@ -52,8 +51,7 @@ async def get_municipality_geometry(nome: str, db: Session = Depends(get_db)):
         geometry=json.loads(result.geom_json),
         properties={
             "id": result.id,
-            "nome": result.nome,
-            "populacao": result.populacao
+            "nome": result.nome
         }
     )
 
